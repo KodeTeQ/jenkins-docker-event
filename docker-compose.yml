@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    restart: unless-stopped
+    ports:
+      - "3600:8080"
+      - "50000:50000"
+    volumes:
+      - ./data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    environment:
+      - JENKINS_OPTS=--httpPort=8080
+    user: root  # Needed for Docker access
